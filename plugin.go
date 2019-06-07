@@ -186,7 +186,7 @@ func (p Plugin) CheckoutHead() error {
 		"git",
 		"checkout",
 		"-qf",
-		"FETCH_HEAD",
+		p.Config.Branch,
 	))
 }
 
