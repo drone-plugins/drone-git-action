@@ -32,6 +32,8 @@ type (
 		Branch      string
 		Path        string
 		Message     string
+		Tag         string
+		TagMessage  string
 		Force       bool
 		FollowTags  bool
 		SkipVerify  bool
@@ -87,6 +89,14 @@ func (p *Plugin) Exec() error {
 			}
 		case "push":
 			if err := p.HandlePush(); err != nil {
+				return err
+			}
+		case "tag":
+			if err := p.HandleTag(); err != nil {
+				return err
+			}
+		case "push-tag":
+			if err := p.HandlePushTag(); err != nil {
 				return err
 			}
 		default:
@@ -219,5 +229,21 @@ func (p Plugin) HandlePush() error {
 		p.Config.Branch,
 		p.Config.Force,
 		p.Config.FollowTags,
+	))
+}
+
+// HandleTag creates a tag on the current commit.
+func (p Plugin) HandleTag() error {
+	return execute(repo.CreateTag(
+		p.Config.Tag,
+		p.Config.TagMessage,
+	))
+}
+
+// HandlePushTag pushes a tag to remote.
+func (p Plugin) HandlePushTag() error {
+	return execute(repo.RemotePushTag(
+		"origin",
+		p.Config.Tag,
 	))
 }
