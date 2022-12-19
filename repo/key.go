@@ -2,7 +2,6 @@ package repo
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -44,7 +43,7 @@ func WriteKey(privateKey string) error {
 		sshpath,
 		"config")
 
-	if err := ioutil.WriteFile(
+	if err := os.WriteFile(
 		confpath,
 		[]byte(configFile),
 		0700,
@@ -57,7 +56,7 @@ func WriteKey(privateKey string) error {
 		"id_rsa",
 	)
 
-	if err := ioutil.WriteFile(
+	if err := os.WriteFile(
 		privpath,
 		[]byte(privateKey),
 		0600,
@@ -92,7 +91,7 @@ func WriteNetrc(machine, login, password string) error {
 		".netrc",
 	)
 
-	return ioutil.WriteFile(
+	return os.WriteFile(
 		netpath,
 		[]byte(netrcContent),
 		0600,
