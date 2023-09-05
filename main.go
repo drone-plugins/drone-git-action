@@ -80,6 +80,18 @@ func main() {
 			EnvVar: "PLUGIN_MESSAGE",
 		},
 
+		cli.StringFlag{
+			Name:   "tag",
+			Usage:  "tag to create",
+			EnvVar: "PLUGIN_TAG,DRONE_TAG",
+		},
+
+		cli.StringFlag{
+			Name:   "tag-message",
+			Usage:  "tag message",
+			EnvVar: "PLUGIN_TAG_MESSAGE",
+		},
+
 		cli.BoolFlag{
 			Name:   "force",
 			Usage:  "force push to remote",
@@ -132,6 +144,8 @@ func run(c *cli.Context) error {
 			Branch:      c.String("branch"),
 			Path:        c.String("path"),
 			Message:     c.String("message"),
+			Tag:         c.String("tag"),
+			TagMessage:  c.String("tag-message"),
 			Force:       c.Bool("force"),
 			FollowTags:  c.Bool("followtags"),
 			SkipVerify:  c.Bool("skip-verify"),

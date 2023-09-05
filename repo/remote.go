@@ -54,3 +54,14 @@ func RemotePushNamedBranch(remote, localbranch string, branch string, force bool
 
 	return cmd
 }
+
+// RemotePushTag pushes a tag from local to a remote repo.
+func RemotePushTag(remote, tag string) *exec.Cmd {
+	cmd := exec.Command(
+		"git",
+		"push",
+		remote,
+		tag)
+
+	return cmd
+}
